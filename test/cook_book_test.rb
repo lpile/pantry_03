@@ -22,4 +22,21 @@ class CookBookTest <Minitest::Test
   def test_it_exists
     assert_instance_of CookBook, @cookbook
   end
+
+  def test_it_can_recipes
+    assert_equal [@mac_and_cheese], @cookbook.add_recipe(@mac_and_cheese)
+    assert_equal [@mac_and_cheese, @burger], @cookbook.add_recipe(@burger)
+  end
+
+  def test_it_can_summary
+    @cookbook.add_recipe(@mac_and_cheese)
+    @cookbook.add_recipe(@burger)
+    expected = [{:name=>"Mac and Cheese", :details=>{:ingredients=>[{:ingredient=>"Macaroni", :amount=>"8 oz"},
+          {:ingredient=>"Cheese", :amount=>"2 C"}], :total_calories=>440}},
+           {:name=>"Burger", :details=>
+             {:ingredients=>[{:ingredient=>"Ground Beef", :amount=>"4 oz"},
+               {:ingredient=>"Bun", :amount=>"100 g"}], :total_calories=>500}}]
+
+    assert_equal expected, @cookbook.summary
+  end
 end
