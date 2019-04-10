@@ -14,7 +14,6 @@ class Recipe
     total_calories = {}
     @ingredients.each do |ingredient|
       total_calories[ingredient.first.name] = ingredient.first.calories * ingredient.last
-      # require 'pry'; binding.pry
     end
     total_calories.values.sum
   end
