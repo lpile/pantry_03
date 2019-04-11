@@ -11,10 +11,34 @@ class Recipe
   end
 
   def total_calories
-    total_calories = {}
-    @ingredients.each do |ingredient|
-      total_calories[ingredient.first.name] = ingredient.first.calories * ingredient.last
+    total = 0
+    @ingredients.each do |ingredient, amount|
+      total += ingredient.calories * amount
     end
-    total_calories.values.sum
+    total
+  end
+
+  def list_of_ingredients
+    @ingredients.keys.map(&:name)
+  end
+
+  def check_quantity(ingredient)
+    @ingredients[ingredient]
+  end
+
+  def summary
+    {
+      name: @name,
+      details: {
+        ingredients: ingredients_array,
+        total_calories: total_calories
+      }
+    }
+  end
+
+  def ingredients_array
+    @ingredients.map do |ingredient, amount|
+      {ingredient: ingredient.name, amount: "#{amount} #{ingredient.unit}"}
+    end
   end
 end

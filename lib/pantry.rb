@@ -14,11 +14,6 @@ class Pantry
   end
 
   def enough_ingredients_for?(recipe)
-    recipe.ingredients.keys.each do |ingredient|
-      if !@stock.keys.include?(ingredient) || recipe.ingredients[ingredient] > stock_check(ingredient)
-        return false
-      end
-    end
-    true
+    recipe.ingredients.all? {|ingredient, amount| @stock[ingredient] >= amount}
   end
 end
